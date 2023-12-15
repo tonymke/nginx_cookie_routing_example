@@ -1,0 +1,20 @@
+services:
+  proxy:
+    image: "nginx:stable"
+    ports:
+      - "127.0.0.1:8080:80"
+    volumes:
+      - "./reverse_proxy.conf:/etc/nginx/conf.d/default.conf:ro"
+    depends_on:
+      - "static1"
+      - "static2"
+
+  static1:
+    image: "nginx:stable"
+    volumes:
+      - "./static_1:/usr/share/nginx/html:ro"
+
+  static2:
+    image: "nginx:stable"
+    volumes:
+      - "./static_2:/usr/share/nginx/html:ro"
